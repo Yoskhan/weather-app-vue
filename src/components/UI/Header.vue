@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import LanguageSwitch from "./Language-Switch.vue";
+import LanguageSwitch from "./LanguageSwitch.vue";
 
 export default {
   components: { LanguageSwitch: LanguageSwitch },
