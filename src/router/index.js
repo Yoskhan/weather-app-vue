@@ -2,15 +2,21 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Login from "../components/Auth/Login.vue";
 import Weather from "../components/Weather/Weather.vue";
-import {store} from "../store/store" 
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    redirect: {
-      name: "Login",
+    beforeEnter: (to, from, next) => {
+      let xToken = null;
+      xToken = window.localStorage.getItem("xToken");
+
+      if (!xToken) {
+        next("/login");
+      } else {
+        next("/weather");
+      }
     },
   },
   {
@@ -23,8 +29,10 @@ const routes = [
     name: "Weather",
     component: Weather,
     beforeEnter: (to, from, next) => {
-      if (store.state.authenticated === false) {
-        console.log(store.state.authenticated)
+      let xToken = null;
+      xToken = window.localStorage.getItem("xToken");
+
+      if (!xToken) {
         next(false);
       } else {
         next();
