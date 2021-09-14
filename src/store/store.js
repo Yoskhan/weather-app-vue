@@ -2,10 +2,11 @@ import Vue from "vue";
 import Vuex from "vuex";
 
 import myCities from "../utils/citiesData";
-import { getData } from "../services/httpRequests";
+
 import { getCityData } from "../services/httpRequests";
 import { getCityWeekData } from "../services/httpRequests";
 import { getByHourData } from "../services/httpRequests";
+import { getFavoriteCitiesData } from "../services/httpRequests";
 
 Vue.use(Vuex);
 
@@ -18,7 +19,7 @@ export const store = new Vuex.Store({
     citiesForecast: [],
     cityWeekForecast: [],
     byDayForecastData: {},
-    data: [],
+    updateComponents: false,
   },
   getters: {
     getCityById: (state) => (id) => {
@@ -29,6 +30,9 @@ export const store = new Vuex.Store({
     },
   },
   mutations: {
+    updateComponents(state) {
+      state.updateComponents = !state.updateComponents;
+    },
     logInUser(state) {
       state.authenticated = true;
     },
@@ -50,16 +54,16 @@ export const store = new Vuex.Store({
     },
     removeCityFromFavorites(state, city) {
       let index = state.favorites.findIndex((i) => {
-        i.id === city.id;
+        return i.id == city.id;
       });
+      console.log(index);
       state.favorites.splice(index, 1);
-    },
-    setData(state, data) {
-      state.data.push(data);
-      console.log("ovo je u stateu", state.data);
     },
     setCitiesForecast(state, citiesForecast) {
       state.citiesForecast = citiesForecast;
+    },
+    setFavoriteCitiesForecast(state, newFavorites) {
+      state.favorites = newFavorites;
     },
     setCityWeekForecast(state, cityWeekForecast) {
       state.cityWeekForecast = cityWeekForecast;
@@ -69,11 +73,6 @@ export const store = new Vuex.Store({
     },
   },
   actions: {
-    getBadgeData({ commit }) {
-      getData().then((res) => {
-        commit("setData", res);
-      });
-    },
     getCitiesForecast({ commit }) {
       let citiesForecast = [];
 
@@ -82,7 +81,19 @@ export const store = new Vuex.Store({
           citiesForecast.push(res);
         });
       });
+
       commit("setCitiesForecast", citiesForecast);
+    },
+    getFavoriteCitiesForecast({ commit }) {
+      let newFavorites = [];
+
+      this.state.favorites.forEach((city) => {
+        getFavoriteCitiesData(city).then((res) => {
+          newFavorites.push(res);
+        });
+      });
+
+      commit("setFavoriteCitiesForecast", newFavorites);
     },
     getCityWeekForecast({ commit }, city) {
       getCityWeekData(city).then((res) => {

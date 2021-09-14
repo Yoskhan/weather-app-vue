@@ -2,7 +2,7 @@
   <div id="app">
     <div id="nav">
       <Layout>
-        <router-view></router-view>
+        <router-view :key="updateComponents"></router-view>
       </Layout>
     </div>
   </div>
@@ -16,6 +16,11 @@ export default {
   data: function() {
     return {};
   },
+  computed: {
+    updateComponents(){
+      return this.$store.state.updateComponents;
+    }
+  }
 };
 </script>
 

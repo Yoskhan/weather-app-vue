@@ -2,10 +2,10 @@
   <div>
     <h1 class="city">{{ $t("favorites-component.subtitle") }}</h1>
     <div class="paper-for-cities-favorites">
-      <div v-for="city in favoriteCities" :key="city.id">
+      <div v-for="city in favoriteCities" :key="city.name">
         <city-badge-favorite
           :v-if="city"
-          :cityId="city.id"
+          :city="city"
         ></city-badge-favorite>
       </div>
     </div>
@@ -22,6 +22,9 @@ export default {
       return this.$store.state.favorites;
     },
   },
+  mounted(){
+    this.$store.dispatch('getFavoriteCitiesForecast');
+  }
 };
 </script>
 

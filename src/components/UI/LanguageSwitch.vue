@@ -1,14 +1,14 @@
 <template>
   <div class="Container">
     <span
-      @click="changeLanguage('hr')"
-      :class="[this.language === 'hr' ? 'Active' : 'Inactive']"
+      @click="language === 'en' ? changeLanguage('hr') : null"
+      :class="[language === 'hr' ? 'Active' : 'Inactive']"
       >HR</span
     >
     <span class="Active"> / </span>
     <span
-      @click="changeLanguage('en')"
-      :class="[this.language === 'en' ? 'Active' : 'Inactive']"
+      @click="language === 'hr' ? changeLanguage('en') : null"
+      :class="[language === 'en' ? 'Active' : 'Inactive']"
       >ENG</span
     >
   </div>
@@ -27,6 +27,7 @@ export default {
     changeLanguage: function(lang) {
       i18n.locale = lang;
       this.language = lang;
+      this.$store.commit("updateComponents");
     },
   },
 };

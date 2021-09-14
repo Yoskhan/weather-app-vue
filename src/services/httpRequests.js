@@ -3,10 +3,10 @@ import i18n from "../i18n";
 
 import { convertDayHRtoENG } from "../utils/convertDayHRtoENG";
 
-export const getData = () => {
+export const getCityData = (city) => {
   return axios
     .get(
-      `http://api.openweathermap.org/data/2.5/weather?id=2950159&appid=2d68358918888f615d0902c866620ffa&lang=${i18n.locale}&units=metric`
+      `http://api.openweathermap.org/data/2.5/weather?id=${city.id}&appid=2d68358918888f615d0902c866620ffa&lang=${i18n.locale}&units=metric`
     )
     .then((response) => {
       // handle success
@@ -15,11 +15,10 @@ export const getData = () => {
     .catch((error) => {
       // handle error
       console.log(error);
-      return "error";
     });
 };
 
-export const getCityData = (city) => {
+export const getFavoriteCitiesData = (city) => {
   return axios
     .get(
       `http://api.openweathermap.org/data/2.5/weather?id=${city.id}&appid=2d68358918888f615d0902c866620ffa&lang=${i18n.locale}&units=metric`
