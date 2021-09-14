@@ -32,13 +32,16 @@ export default {
 };
 </script>
 
-<style scoped>
-.Inactive,
-:hover {
-  color: gray;
+<style lang="scss" scoped>
+@import "../../styles/variables.scss";
+
+
+.Inactive {
+  color: $gray-color-light;
   cursor: pointer;
 }
 .Active {
-  color: white;
+  color: $primary-color-dark;
+  cursor: default;
 }
 </style>

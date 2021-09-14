@@ -1,0 +1,50 @@
+@mixin paper {
+  text-align: center;
+  padding: 4rem;
+  margin: 0 auto;
+  margin-top: 2rem;
+  width: 60%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  border: 1px solid whitesmoke;
+  border-radius: 1rem;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  margin-bottom: 4rem;
+}
+
+@mixin badge {
+  margin: 1rem 2rem;
+  cursor: pointer;
+  border: 1px solid whitesmoke;
+  border-radius: 1rem;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  width: 9rem;
+  height: 9rem;
+}
+
+@mixin input {
+  border: none;
+  border-radius: 1rem;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  padding: 0.5rem 1rem;
+  margin: 0 0.5rem;
+
+  &:focus {
+    outline-width: 0;
+  }
+}
+
+@mixin btn {
+  margin: 0 0.5rem;
+  background: #eee;
+  border: 1px solid transparent;
+  border-radius: 1rem;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  padding: 0.5rem 1rem;
+
+  &:hover {
+    border: 1px solid gray;
+    cursor: pointer;
+  }
+}

@@ -1,7 +1,10 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Login from "../components/Auth/Login.vue";
-import Weather from "../components/Weather/Weather.vue";
+import WeatherByCity from "../components/Weather/WeatherByCity.vue";
+import WeatherByDay from "../components/Weather/WeatherByDay.vue";
+import WeatherByHour from "../components/Weather/WeatherByHour.vue";
+import WeatherFavorites from "../components/Weather/WeatherFavorites.vue";
 
 Vue.use(VueRouter);
 
@@ -26,14 +29,58 @@ const routes = [
   },
   {
     path: "/weather",
-    name: "Weather",
-    component: Weather,
+    component: WeatherByCity,
     beforeEnter: (to, from, next) => {
       let xToken = null;
       xToken = window.localStorage.getItem("xToken");
 
       if (!xToken) {
-        next(false);
+        next("/login");
+      } else {
+        next();
+      }
+    },
+  },
+  {
+    path: "/weather/favorites",
+    name: "WeatherFavorites",
+    component: WeatherFavorites,
+    beforeEnter: (to, from, next) => {
+      let xToken = null;
+      xToken = window.localStorage.getItem("xToken");
+
+      if (!xToken) {
+        next("/login");
+      } else {
+        next();
+      }
+    },
+  },
+  {
+    path: "/weather/:city",
+    name: "WeatherByCity",
+    component: WeatherByDay,
+    beforeEnter: (to, from, next) => {
+      let xToken = null;
+      xToken = window.localStorage.getItem("xToken");
+
+      if (!xToken) {
+        next("/login");
+      } else {
+        next();
+      }
+    },
+  },
+  {
+    path: "/weather/:city/:day",
+    name: "WeatherByHour",
+    component: WeatherByHour,
+    beforeEnter: (to, from, next) => {
+      let xToken = null;
+      xToken = window.localStorage.getItem("xToken");
+
+      if (!xToken) {
+        next("/login");
       } else {
         next();
       }

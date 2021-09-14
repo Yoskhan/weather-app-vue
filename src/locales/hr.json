@@ -1,3 +1,19 @@
 {
-    "message": "dobar dan!!!"
+  "UI": {
+    "btn-add": "Dodaj Grad"
+  },
+  "header": {
+    "log-out": "ODJAVI SE",
+    "favorite": "FAVORITI"
+  },
+  "by-day-component": {
+    "subtitle": "Idućih pet dana"
+  },
+  "favorites-component": {
+    "subtitle": "Vaši omiljeni gradovi"
+  },
+  "login-component": {
+    "title": "Prijavi se",
+    "btn": "Prijavi se"
   }
+}

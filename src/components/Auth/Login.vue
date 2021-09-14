@@ -1,6 +1,6 @@
 <template>
-  <div id="login">
-    <h1>Login</h1>
+  <div class="paper-for-login">
+    <h1>{{ $t("login-component.title") }}</h1>
     <input type="text" name="email" v-model="input.email" placeholder="Email" />
     <input
       type="text"
@@ -8,7 +8,9 @@
       v-model="input.password"
       placeholder="Password"
     />
-    <button type="button" v-on:click="login()">Login</button>
+    <button type="button" v-on:click="login" class="btn">
+      {{ $t("login-component.btn") }}
+    </button>
   </div>
 </template>
 
@@ -45,8 +47,7 @@ export default {
           window.localStorage.setItem("xToken", xToken);
 
           //Change route to /weather
-          this.$router.push('/weather')
-          console.log(window.localStorage.getItem("xToken"))
+          this.$router.push("/weather");
         } else {
           console.log("The email and / or password is incorrect");
         }
@@ -58,13 +59,20 @@ export default {
 };
 </script>
 
-<style scoped>
-#login {
-  width: 35rem;
-  border: 1px solid #cccccc;
-  background-color: #ffffff;
-  margin: auto;
-  margin-top: 5rem;
-  padding: 2rem;
+<style scoped lang="scss">
+@import "../../styles/mixins.scss";
+
+.paper-for-login {
+  @include paper;
+  display: block;
+  margin-top: 8rem;
+}
+
+input {
+  @include input();
+}
+
+.btn {
+ @include btn();
 }
 </style>

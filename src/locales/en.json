@@ -1,3 +1,19 @@
 {
-  "message": "hello i18n !!"
+  "UI": {
+    "btn-add": "Add City"
+  },
+  "header": {
+    "log-out": "LOG OUT",
+    "favorite": "FAVORITES"
+  },
+  "by-day-component": {
+    "subtitle": "Next 5 day"
+  },
+  "favorites-component": {
+    "subtitle": "Your favorite cities"
+  },
+  "login-component": {
+    "title": "Login",
+    "btn": "Login"
+  }
 }

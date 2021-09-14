@@ -1,7 +1,7 @@
 <template>
   <div>
     <Header />
-    <main>
+    <main class="container-main">
       <slot></slot>
     </main>
   </div>
@@ -11,11 +11,15 @@
 import Header from "../UI/Header.vue";
 
 export default {
-  components: { 'Header': Header },
+  components: { Header },
   data: function() {
     return {};
   },
 };
 </script>
 
-<style></style>
+<style scoped>
+.container-main {
+  margin-top: 2rem;
+}
+</style>
