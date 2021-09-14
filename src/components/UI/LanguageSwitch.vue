@@ -35,7 +35,6 @@ export default {
 <style lang="scss" scoped>
 @import "../../styles/variables.scss";
 
-
 .Inactive {
   color: $gray-color-light;
   cursor: pointer;

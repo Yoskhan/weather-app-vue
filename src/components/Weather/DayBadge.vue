@@ -15,7 +15,7 @@
 import i18n from "../../i18n";
 
 export default {
-  props: ["day", "cityName"],
+  props: ["day"],
   data: function() {
     return {
       icon: `http://openweathermap.org/img/wn/${this.day.weather[0].icon}@2x.png`,

@@ -1,22 +1,25 @@
 <template>
   <div>
     <div class="container-date-city">
-      <h1 class="city">{{ cityName }}</h1>
-      <h4 class="date">{{ dateSelected }}</h4>
+      <h1 class="city">{{ byDayForecastData.cityName }}</h1>
+      <h4 class="date">{{ byDayForecastData.dateSelected }}</h4>
     </div>
 
     <div class="paper-for-hours">
       <div
         class="container-table-row"
-        v-for="byHourData in hoursData"
+        v-for="byHourData in byDayForecastData.hoursData"
         :key="byHourData.dt"
       >
         <div class="container-time">
           {{
-            new Date(byHourData.dt * 1000).toLocaleString("en-US", {
-              hour: "2-digit",
-              minute: "2-digit",
-            })
+            new Date(byHourData.dt * 1000).toLocaleString(
+              byDayForecastData.locale,
+              {
+                hour: "2-digit",
+                minute: "2-digit",
+              }
+            )
           }}
         </div>
         <div>
@@ -34,63 +37,30 @@
 </template>
 
 <script>
-import axios from "axios";
-import i18n from "../../i18n";
-
-import { convertDayHRtoENG } from "../../utils/convertDayHRtoENG";
-
 export default {
   data: function() {
-    return {
-      hoursData: [],
-      cityName: "",
-      dateSelected: "",
-      locale: i18n.locale,
-    };
+    return {};
   },
   methods: {
     getIcon: function(iconId) {
       return `http://openweathermap.org/img/wn/${iconId}@2x.png`;
     },
   },
+  computed: {
+    byDayForecastData() {
+      return this.$store.state.byDayForecastData;
+    },
+  },
   mounted() {
     const cityID = this.$route.params.city;
     const daySelected = this.$route.params.day;
 
-    axios
-      .get(
-        `https://api.openweathermap.org/data/2.5/forecast?id=${cityID}&appid=2d68358918888f615d0902c866620ffa&lang=${this.locale}&units=metric`
-      )
-      .then((response) => {
-        this.cityName = response.data.city.name;
+    let data = {};
 
-        response.data.list.forEach((dataByHour) => {
-          let timestamp = dataByHour.dt;
+    data.id = cityID;
+    data.daySelected = daySelected;
 
-          const day = new Date(timestamp * 1000).toLocaleDateString("en-US", {
-            weekday: "short",
-          });
-
-          if (convertDayHRtoENG(daySelected) === day) {
-            this.hoursData.push(dataByHour);
-          }
-        });
-
-        const options = {
-          weekday: "long",
-          year: "numeric",
-          month: "numeric",
-          day: "numeric",
-        };
-
-        this.dateSelected = new Date(
-          this.hoursData[0].dt * 1000
-        ).toLocaleDateString(this.locale, options);
-      })
-      .catch((error) => {
-        // handle error
-        console.log(error);
-      });
+    this.$store.dispatch("getByHourForecast", data);
   },
 };
 </script>

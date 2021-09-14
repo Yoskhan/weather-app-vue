@@ -2,8 +2,8 @@
   <div>
     <search-bar-city></search-bar-city>
     <div class="paper-for-cities">
-      <div v-for="city in cities" :key="city.id">
-          <city-badge :v-if="city" :cityId="city.id"> </city-badge>
+      <div v-for="cityForecast in citiesForecast" :key="cityForecast.id">
+        <city-badge :v-if="cityForecast" :city="cityForecast"> </city-badge>
       </div>
     </div>
   </div>
@@ -16,9 +16,15 @@ import CityBadge from "./CityBadge.vue";
 export default {
   components: { SearchBarCity, CityBadge },
   computed: {
-    cities() {
-      return this.$store.state.cities;
+    myCities() {
+      return this.$store.state.myCities;
     },
+    citiesForecast() {
+      return this.$store.state.citiesForecast;
+    },
+  },
+  mounted() {
+    this.$store.dispatch("getCitiesForecast");
   },
 };
 </script>

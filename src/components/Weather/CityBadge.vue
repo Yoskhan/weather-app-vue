@@ -1,14 +1,13 @@
 <template>
-  <div class="container-city-badge" @click="changeRoute(cityData.id)">
-    <div class="title">{{ cityData.name }}</div>
+  <div class="container-city-badge" @click="changeRoute(city.id)">
+    <div class="title">{{ city.name }}</div>
     <div class="icon">
       <img :src="icon" alt="weather-icon" width="80" height="80" />
     </div>
-
     <div class="container-temp-and-icons">
       <span
         class="icon-favorite"
-        @click.stop="addRemoveCityFromFavorites(cityData)"
+        @click.stop="addRemoveCityFromFavorites(city)"
       >
         <img
           v-if="isFavorite"
@@ -23,8 +22,8 @@
           width="20px"
         />
       </span>
-      <span>{{ cityData.main.temp }} ºC</span>
-      <span class="icon-delete" @click.stop="deleteCity(cityData.id)">
+      <span>{{ city.main.temp }} ºC</span>
+      <span class="icon-delete" @click.stop="deleteCity(city.id)">
         <img src="../../assets/delete-red.svg" alt="icon-star" width="20px" />
       </span>
     </div>
@@ -32,19 +31,11 @@
 </template>
 
 <script>
-import axios from "axios";
-import i18n from "../../i18n";
-
 export default {
-  props: ["cityId"],
+  props: ["city"],
   data: function() {
     return {
-      cityData: {
-        main: {
-          temp: 0,
-        },
-      },
-      icon: "",
+      icon: `http://openweathermap.org/img/wn/${this.city.weather[0].icon}@2x.png`,
     };
   },
   methods: {
@@ -57,34 +48,15 @@ export default {
     addRemoveCityFromFavorites: function(city) {
       const isFavorite = this.$store.getters.isFavorite(city.id);
 
-      if (isFavorite) {
-        this.$store.commit("removeCityFromFavorites", city);
-      } else {
-        this.$store.commit("addCityToFavorites", city);
-      }
+      isFavorite
+        ? this.$store.commit("removeCityFromFavorites", city)
+        : this.$store.commit("addCityToFavorites", city);
     },
   },
   computed: {
     isFavorite: function() {
-      return this.$store.getters.isFavorite(this.cityId);
+      return this.$store.getters.isFavorite(this.city.id);
     },
-  },
-  mounted() {
-    const local = i18n.locale;
- 
-    axios
-      .get(
-        `http://api.openweathermap.org/data/2.5/weather?id=${this.cityId}&appid=2d68358918888f615d0902c866620ffa&lang=${local}&units=metric`
-      )
-      .then((response) => {
-        // handle success
-        this.cityData = response.data;
-        this.icon = `http://openweathermap.org/img/wn/${this.cityData.weather[0].icon}@2x.png`;
-      })
-      .catch((error) => {
-        // handle error
-        console.log(error);
-      });
   },
 };
 </script>

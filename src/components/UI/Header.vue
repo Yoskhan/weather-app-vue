@@ -69,8 +69,7 @@ export default {
   color: $gray-color-light;
 
   &:hover {
-  color: $primary-color;
-
+    color: $primary-color;
   }
 }
 

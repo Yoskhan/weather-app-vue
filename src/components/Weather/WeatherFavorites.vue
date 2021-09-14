@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="city">{{$t("favorites-component.subtitle")}}</h1>
+    <h1 class="city">{{ $t("favorites-component.subtitle") }}</h1>
     <div class="paper-for-cities-favorites">
       <div v-for="city in favoriteCities" :key="city.id">
         <city-badge-favorite
@@ -30,6 +30,6 @@ export default {
 @import "../../styles/variables.scss";
 
 .paper-for-cities-favorites {
-   @include paper();
+  @include paper();
 }
 </style>
