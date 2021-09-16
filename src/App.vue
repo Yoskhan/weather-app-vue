@@ -17,10 +17,10 @@ export default {
     return {};
   },
   computed: {
-    updateComponents(){
+    updateComponents() {
       return this.$store.state.updateComponents;
-    }
-  }
+    },
+  },
 };
 </script>
 
